@@ -17,6 +17,7 @@ import {
 import { Globe, Archive, Trash2, Loader2 } from 'lucide-react'
 import { Database } from '@/types/database.types'
 import { submitToIndexNow } from '@/lib/indexnow'
+import { deletePosts } from '@/app/actions/posts/delete-posts'
 
 type Post = Database['public']['Tables']['posts']['Row']
 
