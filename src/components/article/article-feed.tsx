@@ -10,13 +10,15 @@ interface ArticleFeedProps {
     initialPost: any
     initialHtml?: string
     authorName?: string
+    authorId?: string
     trendingPosts?: any[]
 }
 
-export function ArticleFeed({ initialPost, initialHtml, authorName, trendingPosts = [] }: ArticleFeedProps) {
+export function ArticleFeed({ initialPost, initialHtml, authorName, authorId, trendingPosts = [] }: ArticleFeedProps) {
     const [articles, setArticles] = useState<any[]>([{
         post: initialPost,
         authorName,
+        authorId,
         key: initialPost.id
     }])
     const [nextBatch, setNextBatch] = useState<any[]>([])
@@ -133,7 +135,8 @@ export function ArticleFeed({ initialPost, initialHtml, authorName, trendingPost
                     <ArticleView
                         post={item.post}
                         contentHtml={index === 0 ? initialHtml : undefined}
-                        authorName={item.authorName} // Only valid for first one usually
+                        authorName={item.authorName}
+                        authorId={item.authorId}
                         trendingPosts={trendingPosts}
                         isFeedItem={index > 0}
                     />

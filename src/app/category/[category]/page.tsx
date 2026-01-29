@@ -97,6 +97,7 @@ async function getCategoryCounts() {
 }
 
 import { CollectionPageStructuredData, BreadcrumbStructuredData } from '@/components/structured-data'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export default async function CategoryPage({
   params,
@@ -151,6 +152,11 @@ export default async function CategoryPage({
       <Navigation />
       <main id="main-content" tabIndex={-1} className="min-h-screen bg-background text-foreground">
         <div className="max-w-7xl mx-auto px-4 py-8">
+          <Breadcrumbs
+            items={[
+              { label: decodedCategory, href: `/category/${category}` },
+            ]}
+          />
           <div className="mb-8">
             <h1 className="text-4xl font-heading font-bold mb-2">
               {decodedCategory}

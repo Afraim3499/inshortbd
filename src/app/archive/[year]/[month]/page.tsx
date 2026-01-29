@@ -108,6 +108,9 @@ async function getAvailableMonths() {
     })
 }
 
+import { BreadcrumbStructuredData, CollectionPageStructuredData } from '@/components/structured-data'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+
 export default async function ArchivePage({
   params,
   searchParams,
@@ -121,6 +124,7 @@ export default async function ArchivePage({
   const year = parseInt(resolvedParams.year)
   const month = parseInt(resolvedParams.month)
   const currentPage = parseInt(page || '1', 10) || 1
+  const siteUrl = getSiteUrl()
 
   // Validate month
   if (month < 1 || month > 12 || isNaN(year) || isNaN(month)) {
@@ -135,9 +139,30 @@ export default async function ArchivePage({
 
   return (
     <>
+      <CollectionPageStructuredData
+        name={`Archive: ${monthName} ${year} - Inshort`}
+        description={`Articles published in ${monthName} ${year} on Inshort.`}
+        url={`/archive/${year}/${month}`}
+        siteUrl={siteUrl}
+        hasPart={posts.map(p => `/news/${p.slug}`)}
+      />
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Archives', url: '/archive' },
+          { name: `${monthName} ${year}`, url: `/archive/${year}/${month}` }
+        ]}
+        siteUrl={siteUrl}
+      />
       <Navigation />
       <main id="main-content" tabIndex={-1} className="min-h-screen bg-background text-foreground">
         <div className="max-w-7xl mx-auto px-4 py-8">
+          <Breadcrumbs
+            items={[
+              { label: 'Archives', href: '/archive' },
+              { label: `${monthName} ${year}`, href: `/archive/${year}/${month}` },
+            ]}
+          />
           <div className="mb-8">
             <h1 className="text-4xl font-heading font-bold mb-2">
               Archive: {monthName} {year}

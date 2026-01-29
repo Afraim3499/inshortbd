@@ -205,12 +205,12 @@ export function SearchModal({ open, onOpenChange }: SearchModalProps) {
                     onClick={handleSubmit}
                     className="w-full text-center py-4 text-sm font-medium text-primary hover:underline"
                   >
-                    "{query}"-এর সকল ফলাফল দেখুন
+                    &quot;{query}&quot;-এর সকল ফলাফল দেখুন
                   </button>
                 </div>
               ) : (
                 <div className="p-8 text-center text-muted-foreground">
-                  "{query}"-এর সাথে মেলে এমন কোনো ফলাফল পাওয়া যায়নি
+                  &quot;{query}&quot;-এর সাথে মেলে এমন কোনো ফলাফল পাওয়া যায়নি
                 </div>
               )}
             </div>

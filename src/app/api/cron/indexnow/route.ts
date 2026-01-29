@@ -36,8 +36,8 @@ export async function GET(request: Request) {
             },
             body: JSON.stringify({
                 host: 'inshortbd.com',
-                key: '44ec99a4236d47e9869fcd852bf964ce',
-                keyLocation: `https://inshortbd.com/44ec99a4236d47e9869fcd852bf964ce.txt`,
+                key: '48c742f25bad4614abac4edd413d4267',
+                keyLocation: `https://inshortbd.com/48c742f25bad4614abac4edd413d4267.txt`,
                 urlList: urlsToIndex
             })
         })

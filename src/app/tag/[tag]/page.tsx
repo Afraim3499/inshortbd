@@ -65,6 +65,9 @@ async function getPostsByTag(tag: string, page: number = 1) {
   }
 }
 
+import { CollectionPageStructuredData, BreadcrumbStructuredData } from '@/components/structured-data'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+
 export default async function TagPage({
   params,
   searchParams,
@@ -78,6 +81,7 @@ export default async function TagPage({
   const { posts, total } = await getPostsByTag(tag, currentPage)
   const decodedTag = decodeURIComponent(tag)
   const totalPages = Math.ceil(total / POSTS_PER_PAGE)
+  const siteUrl = getSiteUrl()
 
   if (posts.length === 0 && currentPage === 1) {
     notFound()
@@ -85,9 +89,29 @@ export default async function TagPage({
 
   return (
     <>
+      <CollectionPageStructuredData
+        name={`Tag: ${decodedTag} - Inshort`}
+        description={`All articles, news, and updates about ${decodedTag} from Inshort.`}
+        url={`/tag/${tag}`}
+        siteUrl={siteUrl}
+      />
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Tags', url: '/archive' }, // Better mapping than nothing
+          { name: decodedTag, url: `/tag/${tag}` }
+        ]}
+        siteUrl={siteUrl}
+      />
       <Navigation />
       <main id="main-content" tabIndex={-1} className="min-h-screen bg-background text-foreground">
         <div className="max-w-7xl mx-auto px-4 py-8">
+          <Breadcrumbs
+            items={[
+              { label: 'Tags', href: '/archive' },
+              { label: decodedTag, href: `/tag/${tag}` },
+            ]}
+          />
           <div className="mb-8">
             <h1 className="text-4xl font-heading font-bold mb-2">
               Tag: {decodedTag}

@@ -1,4 +1,5 @@
 import { Navigation } from '@/components/navigation'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 import { Footer } from '@/components/footer'
 import { Metadata } from 'next'
 import { getSiteUrl } from '@/lib/env'
@@ -18,6 +19,11 @@ export default function ContactPage() {
       <Navigation />
       <main className="min-h-screen bg-background text-foreground">
         <div className="max-w-3xl mx-auto px-4 py-16">
+          <Breadcrumbs
+            items={[
+              { label: 'Contact', href: '/contact' },
+            ]}
+          />
           <h1 className="text-4xl md:text-5xl font-heading font-bold mb-8">যোগাযোগ করুন</h1>
 
           <div className="prose prose-invert prose-zinc max-w-none space-y-8">

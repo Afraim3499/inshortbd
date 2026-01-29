@@ -30,7 +30,7 @@ async function getPost(slug: string) {
   const supabase = await createClient()
   const { data, error } = await (supabase
     .from('posts') as any)
-    .select('*, author:profiles(full_name, email, role, avatar_url)')
+    .select('*, author:profiles(id, full_name, email, role, avatar_url)')
     .eq('slug', slug)
     .eq('status', 'published')
     .single()
@@ -143,6 +143,7 @@ export async function generateMetadata({
 
 
 import { extractTakeawaysFromContent } from '@/lib/extract-takeaways'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export default async function ArticlePage({ params }: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params
@@ -168,6 +169,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
       <ArticleStructuredData
         post={post as any}
         authorName={authorName}
+        authorId={post.author?.id || (post as any).author_id}
         siteUrl={siteUrl}
         mentions={(post as any).mentions}
       />
@@ -187,9 +189,16 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
 
       <main id="main-content" tabIndex={-1} className="min-h-screen bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <Breadcrumbs
+            items={[
+              { label: post.category, href: `/category/${encodeURIComponent(post.category)}` },
+              { label: post.title, href: `/news/${post.slug}` },
+            ]}
+          />
           <ArticleFeed
             initialPost={{ ...post, key_takeaways: keyTakeaways }}
             authorName={authorName}
+            authorId={post.author?.id || (post as any).author_id}
             trendingPosts={trending}
           />
         </div>

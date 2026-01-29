@@ -13,6 +13,7 @@ type Post = Database['public']['Tables']['posts']['Row']
 interface StructuredDataProps {
   post: Post
   authorName?: string
+  authorId?: string
   siteUrl?: string
   mentions?: { name: string; url: string }[]
 }
@@ -20,6 +21,7 @@ interface StructuredDataProps {
 export function ArticleStructuredData({
   post,
   authorName,
+  authorId,
   siteUrl,
   mentions,
 }: StructuredDataProps) {
@@ -53,7 +55,9 @@ export function ArticleStructuredData({
     author: authorName ? {
       '@type': 'Person',
       name: authorName,
-      url: `${finalSiteUrl}/author/${encodeURIComponent(authorName.toLowerCase().replace(/\s+/g, '-'))}`,
+      url: authorId
+        ? `${finalSiteUrl}/author/${authorId}`
+        : `${finalSiteUrl}/author/${encodeURIComponent(authorName.toLowerCase().replace(/\s+/g, '-'))}`,
     } : undefined,
     speakable: {
       '@type': 'SpeakableSpecification',
@@ -63,7 +67,8 @@ export function ArticleStructuredData({
       ]
     },
     articleSection: post.category,
-    inLanguage: 'en-US',
+    keywords: post.tags ? post.tags.join(', ') : undefined,
+    inLanguage: 'bn-BD',
     dateline: detectLocationFromTags(post.tags),
     copyrightYear: new Date().getFullYear(),
     copyrightHolder: {
@@ -111,16 +116,17 @@ export function OrganizationStructuredData({
     '@type': 'NewsMediaOrganization',
     '@id': `${finalSiteUrl}/#organization`,
     name: 'Inshort',
+    alternateName: 'Inshort BD',
     url: finalSiteUrl,
     logo: {
       '@type': 'ImageObject',
-      url: `${finalSiteUrl}/logo.svg`,
-      width: 600,
-      height: 60,
+      url: `${finalSiteUrl}/inshort-logo.png`,
+      width: 512,
+      height: 512,
     },
     slogan: 'Concise. Accurate. Breaking. Global news for the modern reader.',
     sameAs: [
-      'https://twitter.com/InshortBD',
+      'https://x.com/InshortBD',
       'https://www.instagram.com/inshortbangladesh/',
       'https://facebook.com/bdinshort',
       'https://www.linkedin.com/company/inshortbd/',
@@ -128,7 +134,7 @@ export function OrganizationStructuredData({
     ],
     contactPoint: {
       '@type': 'ContactPoint',
-      email: 'contact@inshortbd.com',
+      email: 'afraim.afraim99@gmail.com',
       contactType: 'editorial',
       areaServed: 'Worldwide',
     },
@@ -236,6 +242,7 @@ export function CollectionPageStructuredData({
     publisher: {
       '@id': `${finalSiteUrl}/#organization`
     },
+    inLanguage: 'bn-BD',
   }
 
   if (hasPart && hasPart.length > 0) {
@@ -380,6 +387,7 @@ export function ProfilePageStructuredData({
       image: image,
     },
     url: `${finalSiteUrl}${url}`,
+    inLanguage: 'bn-BD',
   }
 
   return (

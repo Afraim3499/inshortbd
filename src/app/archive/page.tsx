@@ -62,14 +62,36 @@ async function getAvailableMonths() {
   return years
 }
 
+import { BreadcrumbStructuredData, CollectionPageStructuredData } from '@/components/structured-data'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+
 export default async function ArchiveIndexPage() {
   const archives = await getAvailableMonths()
+  const siteUrl = getSiteUrl()
 
   return (
     <>
+      <CollectionPageStructuredData
+        name="Archives - Inshort"
+        description="Browse all articles published on Inshort by month and year."
+        url="/archive"
+        siteUrl={siteUrl}
+      />
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Archives', url: '/archive' }
+        ]}
+        siteUrl={siteUrl}
+      />
       <Navigation />
       <main id="main-content" tabIndex={-1} className="min-h-screen bg-background text-foreground">
         <div className="max-w-4xl mx-auto px-4 py-16">
+          <Breadcrumbs
+            items={[
+              { label: 'Archives', href: '/archive' },
+            ]}
+          />
           <h1 className="text-4xl md:text-5xl font-heading font-bold mb-8">Archives</h1>
           <p className="text-lg text-muted-foreground mb-12">
             Browse articles by month and year

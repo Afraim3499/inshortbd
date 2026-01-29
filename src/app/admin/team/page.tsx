@@ -56,7 +56,16 @@ export default function TeamPage() {
     }
 
     useEffect(() => {
-        fetchMembers()
+        let mounted = true
+
+        getTeamMembers().then(data => {
+            if (mounted) {
+                setMembers(data as Profile[])
+                setLoading(false)
+            }
+        })
+
+        return () => { mounted = false }
     }, [])
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {

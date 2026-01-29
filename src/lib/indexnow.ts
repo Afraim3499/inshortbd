@@ -1,5 +1,5 @@
 export async function submitToIndexNow(urls: string[]) {
-    const key = '3f2a1b9c8d7e6f5a4b3c2d1e0f9a8b7c'
+    const key = '48c742f25bad4614abac4edd413d4267'
     const host = 'inshortbd.com'
 
     if (process.env.NODE_ENV !== 'production') return

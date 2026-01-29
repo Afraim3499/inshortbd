@@ -5,6 +5,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, BookOpen, Clock, Calendar, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { Navigation } from '@/components/navigation'
 
 export async function generateMetadata({
   params,
@@ -94,6 +95,13 @@ async function getCollectionPosts(collectionId: string) {
 // Enable ISR: revalidate every 60 seconds
 export const revalidate = 60
 
+import {
+  CollectionPageStructuredData,
+  BreadcrumbStructuredData,
+} from '@/components/structured-data'
+import { Breadcrumbs } from '@/components/breadcrumbs'
+import { getSiteUrl } from '@/lib/env'
+
 export default async function CollectionPage({
   params,
 }: {
@@ -108,6 +116,7 @@ export default async function CollectionPage({
 
   const collection = collectionOrError
   const posts = await getCollectionPosts(collection.id)
+  const siteUrl = getSiteUrl()
 
   const publishedPosts = posts.filter(
     (post: any) => post && post.status === 'published'
@@ -130,6 +139,22 @@ export default async function CollectionPage({
 
   return (
     <div className="min-h-screen bg-background pb-20">
+      <CollectionPageStructuredData
+        name={`${collection.title} - Inshort`}
+        description={collection.description || `Explore ${collection.title} on Inshort`}
+        url={`/collections/${slug}`}
+        siteUrl={siteUrl}
+        hasPart={publishedPosts.map((p: any) => `/news/${p.slug}`)}
+      />
+      <BreadcrumbStructuredData
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Collections', url: '/archive' },
+          { name: collection.title, url: `/collections/${slug}` }
+        ]}
+        siteUrl={siteUrl}
+      />
+      <Navigation />
       {/* 1. Immersive Hero Section */}
       <div className="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
         {/* Background Image with Parallax-like fixity or just absolute */}
@@ -158,6 +183,16 @@ export default async function CollectionPage({
             <ArrowLeft className="h-4 w-4" />
             <span>Back to Home</span>
           </Link>
+
+          <div className="max-w-4xl mx-auto mb-8">
+            <Breadcrumbs
+              items={[
+                { label: 'Collections', href: '/archive' },
+                { label: collection.title, href: `/collections/${slug}` },
+              ]}
+              className="text-gray-200 mb-0"
+            />
+          </div>
 
           <div className="flex items-center justify-center gap-2 text-sm font-medium text-accent mb-4 tracking-wider uppercase">
             <BookOpen className="h-4 w-4" />

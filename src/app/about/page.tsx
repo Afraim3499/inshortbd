@@ -1,4 +1,5 @@
 import { Navigation } from '@/components/navigation'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 import { Footer } from '@/components/footer'
 import { Metadata } from 'next'
 import { getSiteUrl } from '@/lib/env'
@@ -17,6 +18,11 @@ export default function AboutPage() {
       <Navigation />
       <main className="min-h-screen bg-background text-foreground">
         <div className="max-w-3xl mx-auto px-4 py-16">
+          <Breadcrumbs
+            items={[
+              { label: 'About', href: '/about' },
+            ]}
+          />
           <h1 className="text-4xl md:text-5xl font-heading font-bold mb-8">ইনশর্ট সম্পর্কে</h1>
 
           <div className="prose prose-invert prose-zinc max-w-none space-y-6">

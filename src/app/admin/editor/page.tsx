@@ -459,7 +459,7 @@ function EditorPageContent() {
         readability_score: seoScores?.readabilityScore ?? null,
       }
 
-      let finalContent = content
+      const finalContent = content
 
       // Spiderweb: Auto-Internal Linker
       // Automatically link tags and categories if this is a save operation (not auto-save)

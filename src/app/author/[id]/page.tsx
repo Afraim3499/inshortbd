@@ -60,6 +60,7 @@ async function getAuthorPosts(authorId: string, page: number = 1) {
 }
 
 import { ProfilePageStructuredData, BreadcrumbStructuredData, CollectionPageStructuredData } from '@/components/structured-data'
+import { Breadcrumbs } from '@/components/breadcrumbs'
 
 export async function generateMetadata({
   params,
@@ -128,7 +129,7 @@ export default async function AuthorPage({
       <BreadcrumbStructuredData
         items={[
           { name: 'Home', url: '/' },
-          { name: 'Authors', url: '/about' }, // Assuming authors fall under about or team
+          { name: 'Authors', url: '/editorial-team' },
           { name: authorName, url: `/author/${params.id}` }
         ]}
         siteUrl={siteUrl}
@@ -136,6 +137,12 @@ export default async function AuthorPage({
       <Navigation />
       <main id="main-content" tabIndex={-1} className="min-h-screen bg-background text-foreground">
         <div className="max-w-4xl mx-auto px-4 py-12">
+          <Breadcrumbs
+            items={[
+              { label: 'Authors', href: '/editorial-team' },
+              { label: authorName, href: `/author/${params.id}` },
+            ]}
+          />
           <div className="mb-8 pb-8 border-b border-border">
             <div className="flex items-center gap-6">
               {author.avatar_url ? (

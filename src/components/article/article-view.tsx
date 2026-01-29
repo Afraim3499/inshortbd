@@ -26,12 +26,13 @@ interface ArticleViewProps {
     post: any
     contentHtml?: string
     authorName?: string
+    authorId?: string
     trendingPosts?: any[]
     isFeedItem?: boolean
     keyTakeaways?: string[] // Passed from DB or extracted
 }
 
-export function ArticleView({ post, contentHtml, authorName, trendingPosts = [], isFeedItem = false, keyTakeaways }: ArticleViewProps) {
+export function ArticleView({ post, contentHtml, authorName, authorId, trendingPosts = [], isFeedItem = false, keyTakeaways }: ArticleViewProps) {
     // Fallback: If no DB takeaways, extracting from content is handled in Parent (recommended) or here? 
     // We'll trust the prop passed in specific implementation
 
@@ -131,7 +132,13 @@ export function ArticleView({ post, contentHtml, authorName, trendingPosts = [],
 
                         <div className="flex items-center gap-4 py-6 border-y border-border/50">
                             <div>
-                                <div className="font-bold text-foreground">{authorName || 'ইনশর্ট টিম'}</div>
+                                {authorId ? (
+                                    <a href={`/author/${authorId}`} className="font-bold text-foreground hover:text-primary transition-colors">
+                                        {authorName || 'ইনশর্ট টিম'}
+                                    </a>
+                                ) : (
+                                    <div className="font-bold text-foreground">{authorName || 'ইনশর্ট টিম'}</div>
+                                )}
                                 <div className="text-sm text-muted-foreground">লেখক</div>
                             </div>
                             <div className="ml-auto">
