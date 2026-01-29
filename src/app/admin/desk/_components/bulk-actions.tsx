@@ -41,10 +41,38 @@ export function BulkActions({ selectedPosts, onClearSelection }: BulkActionsProp
       console.log('Bulk action:', action, 'Post IDs:', postIds)
 
       if (action === 'delete') {
-        // Use RPC function for cascade delete to avoid foreign key constraints
-        const { data, error } = await supabase.rpc('delete_posts_cascade', {
-          post_ids: postIds
-        })
+        // Manual Cascade Delete:
+        // The database prohibits deleting posts with existing analytics/comments.
+        // We must delete the dependents first since we don't have ON DELETE CASCADE set up in SQL.
+
+        // 1. Delete Analytics Events
+        const { error: analyticsError } = await supabase
+          .from('analytics_events')
+          .delete()
+          .in('post_id', postIds)
+
+        if (analyticsError) {
+          console.error('Error deleting analytics:', analyticsError)
+          // Continue anyway, as it might just be empty
+        }
+
+        // 2. Delete Comments (if table exists and has data)
+        const { error: commentsError } = await supabase
+          .from('comments')
+          .delete()
+          .in('post_id', postIds)
+
+        if (commentsError) {
+          // Comments might not exist or verify, log but continue
+          console.log('Note: Error deleting comments (might not exist):', commentsError.message)
+        }
+
+        // 3. Delete the Posts
+        const { data, error } = await supabase
+          .from('posts')
+          .delete()
+          .in('id', postIds)
+
         console.log('Delete result:', { data, error })
         if (error) {
           console.error('Delete error:', error)
