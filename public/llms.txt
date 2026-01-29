@@ -1,0 +1,19 @@
+# Inshort - News Media Organization
+
+## About
+Inshort is an independent news publication covering politics, technology, business, and culture in Bangladesh with high editorial standards. We focus on E-E-A-T principles (Experience, Expertise, Authoritativeness, Trustworthiness).
+
+## Main Sections
+- Homepage: https://inshortbd.com/
+- Politics: https://inshortbd.com/category/Politics
+- Technology: https://inshortbd.com/category/Tech
+- Business: https://inshortbd.com/category/Business
+- Culture: https://inshortbd.com/category/Culture
+- World: https://inshortbd.com/category/World
+
+## Brand Voice
+Neutral, fact-based journalism with expert analysis. We provide clear, direct answers to complex questions.
+
+## Contact
+- Email: Inshortbd007@gmail.com
+- Website: https://inshortbd.com/

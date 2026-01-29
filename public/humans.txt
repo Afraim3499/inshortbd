@@ -1,0 +1,9 @@
+/* TEAM */
+  Role: The Orchestrator
+  Contact: Inshortbd007@gmail.com
+  From: Dhaka, Bangladesh
+
+/* SITE */
+  Standards: HTML5, CSS3, TC39
+  Components: Radix UI, Tailwind
+  Software: Next.js, Supabase

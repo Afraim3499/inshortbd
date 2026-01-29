@@ -1,0 +1,25 @@
+<svg width="500" height="150" viewBox="0 0 500 150" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(20, 40)">
+    <circle cx="22" cy="38" r="22" fill="#E91B54" />
+    
+    <text x="55" y="70" 
+          fill="#E91B54" 
+          font-family="Inter, -apple-system, sans-serif" 
+          font-size="82" 
+          font-weight="900" 
+          style="letter-spacing: -3px;">IN</text>
+  </g>
+
+  <g transform="translate(178, 40)">
+    <path d="M0 0 H16 V10 H10 V62 H16 V72 H0 Z" fill="#000000" />
+    
+    <text x="24" y="58" 
+          fill="#000000" 
+          font-family="Inter, -apple-system, sans-serif" 
+          font-size="58" 
+          font-weight="700" 
+          style="letter-spacing: 0.5px;">SHORT</text>
+    
+    <path d="M230 0 H246 V72 H230 V62 H236 V10 H230 Z" fill="#000000" />
+  </g>
+</svg>

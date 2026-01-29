@@ -1,0 +1,86 @@
+# 🚀 Project Master Plan: Inshort
+
+## 1. Project Context & Identity
+* **App Name:** Inshort
+* **Tagline:** "Follow the path to the truth."
+* **Social Handles:**
+    * Twitter/X: `@InshortBD`
+    * Instagram: `@InshortBD`
+    * YouTube/TikTok: `@InshortBD`
+* **Core Philosophy:** A "Terminal for Truth." High performance, dark mode, information-dense, zero clutter.
+* **Target Audience:** Modern digital natives who want fast, unbiased updates.
+
+## 2. Tech Stack (Strict Constraints)
+* **Frontend:** Next.js 14+ (App Router).
+* **Language:** TypeScript (Strict Mode).
+* **Styling:** Tailwind CSS + Shadcn/UI (for Admin components).
+* **Database:** Supabase (PostgreSQL).
+* **Auth:** Supabase Auth (Email/Password).
+* **State Management:** React Query (TanStack Query) for Admin data fetching.
+* **Rich Text Editor:** **Tiptap** (Headless, customizable).
+* **Hosting:** Hostinger VPS (Dockerized via Coolify/Docker Compose).
+* **Performance Rule:** NO Runtime AI APIs. All logic is deterministic.
+
+## 3. Visual Design System
+* **Theme:** "Dark Future" (Default).
+* **Colors:**
+    * **Background:** `#09090b` (Zinc 950)
+    * **Surface:** `#18181b` (Zinc 900)
+    * **Primary Text:** `#fafafa` (Zinc 50)
+    * **Accent/Links:** `#3b82f6` (Blue 500)
+    * **Breaking News:** `#ef4444` (Red 500)
+* **Typography:**
+    * Headlines: `Oswald` (Bold, Condensed) or `Geist Sans`.
+    * Body: `Inter` or `Geist Sans`.
+    * Metadata: `JetBrains Mono`.
+
+## 4. Architecture & Routing
+
+### **A. Public Zone (Reader Access)**
+* `/` (Home):
+    * **Hero Section:** Controlled dynamically via `site_config` table.
+    * **The Feed:** Infinite scroll or pagination of `published` posts.
+    * **Sidebar:** "Trending" (pinned posts) + Social Links.
+* `/news/[slug]`: The detailed article view.
+    * Must be **Static** or **ISR** (Incremental Static Regeneration) for speed.
+* `/search`: Client-side search of article titles.
+
+### **B. Admin Zone (Employee Only)**
+* **Route:** `/admin` (Protected by Middleware).
+* **Middleware Logic:**
+    * Check Supabase Session.
+    * Check `profiles` table: if `role` != 'admin' or 'editor', redirect to `/login`.
+* **Dashboard Features:**
+    * **"The Desk" (Post List):** specific columns for Views, Status, Author.
+    * **"The Editor" (Create/Edit):** Full Tiptap integration. Drag & Drop image upload to Supabase Storage.
+    * **"Traffic Control" (Site Config):** A dedicated settings page to:
+        * Select the Hero Article from a dropdown.
+        * Toggle the "Breaking News" banner.
+        * Edit the Banner Text.
+
+## 5. Coding Standards for Cursor
+1.  **Supabase Types:** Always generate and use `Database` types from the SQL schema.
+2.  **Server Components:** Use Server Components by default for the Public Zone (SEO is priority).
+3.  **Client Components:** Use strictly for the `/admin` dashboard and interactive elements (Search, Navbar).
+4.  **Images:** ALWAYS use `next/image`.
+    * Create a reusable component `<NewsImage path={...} />` that resolves the Supabase Storage URL automatically.
+5.  **Error Handling:** Fail gracefully. If the database is down, show a "Cached Version" or a polite error, never a white screen.
+
+## 6. Deployment (Docker/VPS)
+* Include a `Dockerfile` in the root.
+* Use `standalone` output in `next.config.js` to keep the image size small.
+* Ensure environment variables (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`) are referenced correctly.
+
+## 7. The "No-Code" CMS Requirement
+* The Admin UI must look like a premium SaaS product, not a database tool.
+* Use **Shadcn Data Table** for lists.
+* Use **Shadcn Dialogs** for confirmations.
+* The Editor should support "Slash Commands" (e.g., type `/` to insert an image or heading).
+
+
+
+
+
+
+
+

@@ -1,0 +1,18 @@
+name: Auto-Indexing
+
+on:
+  schedule:
+    # Run every hour
+    - cron: '0 * * * *'
+  workflow_dispatch:
+
+jobs:
+  ping-indexnow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call IndexNow Cron
+        run: |
+          curl -X GET https://inshortbd.com/api/cron/indexnow \
+          -H "Authorization: Bearer ${{ secrets.INDEX_NOW_SECRET }}" \
+          --fail
+

@@ -1,0 +1,5 @@
+Contact: mailto:Inshortbd007@gmail.com
+Expires: 2027-01-01T00:00:00.000Z
+Preferred-Languages: en, bn
+Canonical: https://inshortbd.com/.well-known/security.txt
+Policy: https://inshortbd.com/publication-policy

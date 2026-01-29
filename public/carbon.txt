@@ -1,0 +1,4 @@
+[upstream]
+providers:
+  - service: vercel.com
+  - service: supabase.com

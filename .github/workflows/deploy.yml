@@ -1,0 +1,46 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.ENV_FILE }}" > .env
+          echo "INDEX_NOW_SECRET=${{ secrets.INDEX_NOW_SECRET }}" >> .env
+
+      - name: Create deployment package
+        run: |
+          zip -r deploy-package.zip . .env -x "*.git*" "node_modules/*"
+
+      - name: Copy package to VPS
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          source: "deploy-package.zip"
+          target: "/root/"
+
+      - name: Execute deployment commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          password: ${{ secrets.VPS_PASSWORD }}
+          script: |
+            rm -rf app_new
+            mkdir app_new
+            unzip -o deploy-package.zip -d app_new || true
+            cd app_new
+            # .env is already in the zip now
+            docker compose down
+            docker compose up -d --build
+            rm ../deploy-package.zip
