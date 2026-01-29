@@ -1,34 +1,35 @@
 'use server'
 
-import { createClient } from '@/utils/supabase/server'
+// Use Admin Client to bypass RLS for deletion
+import { createAdminClient } from '@/utils/supabase/admin'
 import { revalidatePath } from 'next/cache'
 
 export async function deletePosts(postIds: string[]) {
-    const supabase = await createClient()
+    // We use the Admin Client (Service Role) because:
+    // 1. Regular users might not have RLS permission to delete 'analytics_events' rows.
+    // 2. We need to guarantee these rows are gone before deleting the post to avoid Foreign Key errors.
+    const supabase = createAdminClient()
 
-    // 1. Delete Analytics Events
-    // Note: We ignore errors here because RLS might prevent viewing them, 
-    // or they might not exist. If this fails due to strict RLS, 
-    // the post delete will fail later anyway.
+    // 1. Delete Analytics Events (Strict Cleanup)
     const { error: analyticsError } = await supabase
         .from('analytics_events')
         .delete()
         .in('post_id', postIds)
 
     if (analyticsError) {
-        console.error('Server Action: Validate Analytics Delete Error:', analyticsError)
-        // If strict RLS blocks this, we can't proceed with post delete.
-        // However, we proceed to try. 
+        console.error('Server Action: Cleanup Failed (Analytics):', analyticsError)
+        throw new Error(`Failed to cleanup analytics: ${analyticsError.message}`)
     }
 
-    // 2. Delete Comments
+    // 2. Delete Comments (Strict Cleanup)
     const { error: commentsError } = await supabase
         .from('comments')
         .delete()
         .in('post_id', postIds)
 
     if (commentsError) {
-        console.error('Server Action: Comment Delete Error:', commentsError)
+        console.error('Server Action: Cleanup Failed (Comments):', commentsError)
+        throw new Error(`Failed to cleanup comments: ${commentsError.message}`)
     }
 
     // 3. Delete Posts
