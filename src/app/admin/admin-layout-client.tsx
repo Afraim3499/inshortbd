@@ -36,9 +36,9 @@ export default function AdminLayoutClient({
 
     return (
         <div className="flex min-h-screen bg-background">
-            <aside className="w-64 border-r border-border bg-card/50 p-4 fixed inset-y-0 flex flex-col">
+            <aside className="w-64 border-r border-border bg-card/50 p-4 fixed inset-y-0 flex flex-col h-screen z-50">
                 <div className="font-heading font-bold text-xl mb-8 px-4">Inshort <span className="text-accent text-xs block font-mono">ADMIN</span></div>
-                <nav className="space-y-1 flex-1 overflow-y-auto no-scrollbar -mx-2 px-2">
+                <nav className="space-y-1 flex-1 overflow-y-auto -mx-2 px-2 pb-4">
                     <Link href="/admin/dashboard" className="block px-4 py-2 rounded-md hover:bg-accent/10 text-sm font-medium">Dashboard</Link>
                     <Link href="/admin/desk" className="block px-4 py-2 rounded-md hover:bg-accent/10 text-sm font-medium">The Desk</Link>
                     <Link href="/admin/team" className="block px-4 py-2 rounded-md hover:bg-accent/10 text-sm font-medium">Team</Link>
@@ -60,7 +60,7 @@ export default function AdminLayoutClient({
                 <Button
                     variant="ghost"
                     onClick={handleLogout}
-                    className="w-full justify-start mt-4"
+                    className="w-full justify-start mt-4 flex-shrink-0"
                 >
                     <LogOut className="mr-2 h-4 w-4" />
                     Logout
