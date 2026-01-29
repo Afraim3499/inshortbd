@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { EditorsPickToggle } from "./editors-pick"
 import { copyToClipboard } from "@/lib/tracking/utm-builder"
+import { PostRowActions } from "./post-row-actions"
 
 export type Post = Database['public']['Tables']['posts']['Row']
 
@@ -100,24 +101,7 @@ export const columns: ColumnDef<Post>[] = [
       const post = row.original
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => copyToClipboard(post.id)}>
-              Copy ID
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href={`/admin/editor?id=${post.id}`}>Edit Post</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem className="text-destructive">Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <PostRowActions post={post} />
       )
     },
   },
