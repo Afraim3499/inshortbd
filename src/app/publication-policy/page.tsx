@@ -60,7 +60,7 @@ export default function PublicationPolicyPage() {
                             </h2>
                             <div className="prose prose-slate max-w-none text-gray-700 leading-relaxed">
                                 <p>
-                                    <strong>Inshort</strong> is committed to independent, fearless, and accurate journalism. We adhere strictly to the <strong>Media, Entertainment & Arts Alliance (MEAA) Journalist Code of Ethics</strong>, which serves as the foundation of our editorial decision-making process.
+                                    <strong>Inshort</strong> is committed to independent, fearless, and accurate journalism. We adhere strictly to the <strong>Press Council of Bangladesh Code of Ethics</strong>, which serves as the foundation of our editorial decision-making process.
                                 </p>
                                 <p>
                                     Our primary obligation is to the truth and the public&apos;s right to know. We report without fear or favor, independent of political, corporate, or sectional interests.
@@ -112,10 +112,10 @@ export default function PublicationPolicyPage() {
                             </h2>
                             <div className="prose prose-slate max-w-none text-gray-700 leading-relaxed">
                                 <p>
-                                    As an Australian-based publication with a global audience, we navigate a complex legal landscape with respect and diligence.
+                                    As a Bangladesh-based publication with a global audience, we navigate a complex legal landscape with respect and diligence.
                                 </p>
                                 <ul className="list-disc pl-5 space-y-2 mt-4">
-                                    <li><strong>Australian Law:</strong> We comply with all applicable Australian laws, including the <em>Privacy Act 1988</em> and defamation statutes. We provide a clear right of reply to individuals subject to significant criticism.</li>
+                                    <li><strong>Bangladeshi Law:</strong> We comply with all applicable Bangladeshi laws, including the <em>Digital Security Act 2018</em> and defamation statutes. We provide a clear right of reply to individuals subject to significant criticism.</li>
                                     <li><strong>International Standards:</strong> For our international readers, we respect global data protection standards (including GDPR and CCPA) regarding user privacy.</li>
                                     <li><strong>Contextual Reporting:</strong> When covering international events, we strive to understand and convey the local cultural, historical, and legal context, resisting a purely Western-centric lens.</li>
                                 </ul>

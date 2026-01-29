@@ -73,7 +73,7 @@ export default function TermsOfServicePage() {
                             </h2>
                             <div className="prose prose-slate max-w-none text-gray-700 leading-relaxed">
                                 <p>
-                                    All content published on Inshort, including articles, photographs, images, graphics, audio, and video clips, is the property of Inshort or its content suppliers and is protected by Australian and international copyright laws.
+                                    All content published on Inshort, including articles, photographs, images, graphics, audio, and video clips, is the property of Inshort or its content suppliers and is protected by Bangladeshi and international copyright laws.
                                 </p>
                                 <p>
                                     You may access and use the content for personal, non-commercial use only. You may not reproduce, distribute, modify, create derivative works of, publicly display, or sexually exploit any content without our prior written permission.
@@ -137,7 +137,7 @@ export default function TermsOfServicePage() {
                             </h2>
                             <div className="prose prose-slate max-w-none text-gray-700 leading-relaxed">
                                 <p>
-                                    These Terms of Service are governed by and construed in accordance with the laws of <strong>Australia</strong>. You irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
+                                    These Terms of Service are governed by and construed in accordance with the laws of <strong>Bangladesh</strong>. You irrevocably submit to the exclusive jurisdiction of the courts in that State or location.
                                 </p>
                             </div>
                         </section>
