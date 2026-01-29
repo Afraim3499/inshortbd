@@ -135,7 +135,7 @@ export function Footer() {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <a
-                      href="https://youtube.com/@InshortBD"
+                      href="https://www.youtube.com/@InShort-k1p"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="w-10 h-10 rounded-full flex items-center justify-center bg-soft-wash hover:bg-blood-red hover:text-white transition-all hover:scale-110 no-underline"

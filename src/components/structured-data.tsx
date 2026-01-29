@@ -124,7 +124,7 @@ export function OrganizationStructuredData({
       'https://www.instagram.com/inshortbangladesh/',
       'https://facebook.com/bdinshort',
       'https://www.linkedin.com/company/inshortbd/',
-      'https://youtube.com/@InshortBD',
+      'https://www.youtube.com/@InShort-k1p',
     ],
     contactPoint: {
       '@type': 'ContactPoint',

@@ -109,7 +109,7 @@ export function MobileMenuModal({ open, onOpenChange }: MobileMenuModalProps) {
                         <a href="https://www.linkedin.com/company/inshortbd/" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-blue-700 transition-colors">
                             <Linkedin className="w-5 h-5" />
                         </a>
-                        <a href="https://youtube.com/@InshortBD" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-red-600 transition-colors">
+                        <a href="https://www.youtube.com/@InShort-k1p" target="_blank" rel="noreferrer" className="text-gray-400 hover:text-red-600 transition-colors">
                             <Youtube className="w-5 h-5" />
                         </a>
                     </div>

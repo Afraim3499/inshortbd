@@ -82,7 +82,7 @@ export default function ContactPage() {
                   </a>
 
                   <a
-                    href="https://youtube.com/@InshortBD"
+                    href="https://www.youtube.com/@InShort-k1p"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 p-4 border border-border rounded-lg hover:border-accent hover:bg-accent/5 transition-colors"
