@@ -20,20 +20,16 @@ export const metadata: Metadata = {
   },
   alternates: {
     languages: {
-      'en-US': 'https://inshortbd.com',
+      'bn-BD': 'https://inshortbd.com',
       'x-default': 'https://inshortbd.com',
     },
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
+    'max-image-preview': 'large',
+    'max-snippet': -1,
+    'max-video-preview': -1,
   },
   other: {
     'dns-prefetch': 'https://apis.google.com, https://fonts.googleapis.com, https://www.googletagmanager.com, https://analytics.google.com',
@@ -43,7 +39,7 @@ export const metadata: Metadata = {
     // Quantum: Deep Metadata
     'DC.title': 'Inshort',
     'DC.creator': 'Inshort Team',
-    'DC.language': 'en',
+    'DC.language': 'bn',
     'foaf:primaryTopic': 'https://inshortbd.com/#organization',
     // Geo-Targeting (Local SEO Authority)
     'geo.region': 'BD-13',
@@ -101,7 +97,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="bn" suppressHydrationWarning>
       <body
         className={cn(
           "antialiased text-gray-900 bg-white pb-24 lg:pb-0",

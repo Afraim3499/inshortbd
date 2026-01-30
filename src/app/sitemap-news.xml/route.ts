@@ -34,7 +34,7 @@ export async function GET() {
       <news:news>
         <news:publication>
           <news:name>Inshort</news:name>
-          <news:language>en</news:language>
+          <news:language>bn</news:language>
         </news:publication>
         <news:publication_date>${post.published_at}</news:publication_date>
         <news:title>${escapeXml(post.title)}</news:title>
