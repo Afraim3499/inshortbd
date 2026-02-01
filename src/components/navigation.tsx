@@ -26,11 +26,28 @@ export function Navigation({ breakingBannerActive = false }: NavigationProps) {
   const pathname = usePathname()
   const { names: categoryNames } = useCategories()
 
+  const CATEGORY_TRANSLATIONS: Record<string, string> = {
+    'Politics': 'রাজনীতি',
+    'Tech': 'প্রযুক্তি',
+    'Culture': 'সংস্কৃতি',
+    'Business': 'ব্যবসা',
+    'World': 'বিশ্ব',
+    'Finance': 'ফাইন্যান্স',
+    'Sports': 'খেলাধুলা',
+    'Entertainment': 'বিনোদন',
+  }
+
   // Combine dynamic categories with static items (like Finance)
-  // We filter out any dynamic category that might duplicate a static one (case insensitive)
+  // We filter out any dynamic category that matches 'Finance' (since we have a static one)
+  // AND we map the English names to Bangla
   const navItems = [
-    ...categoryNames.map((name: string) => ({ name, href: `/category/${encodeURIComponent(name)}` })),
-    ...STATIC_NAV_ITEMS.filter((staticItem: { name: string }) => !categoryNames.some((c: string) => c.toLowerCase() === staticItem.name.toLowerCase()))
+    ...STATIC_NAV_ITEMS,
+    ...categoryNames
+      .filter((name: string) => name.toLowerCase() !== 'finance') // Remove duplicate Finance
+      .map((name: string) => ({
+        name: CATEGORY_TRANSLATIONS[name] || name, // Translate or keep original
+        href: `/category/${encodeURIComponent(name.toLowerCase())}`
+      }))
   ]
 
   const isActive = (path: string) => {

@@ -36,7 +36,7 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
         {/* Other items */}
         {items.map((item, index) => (
           <li
-            key={item.href}
+            key={`${item.href}-${index}`}
             itemProp="itemListElement"
             itemScope
             itemType="https://schema.org/ListItem"

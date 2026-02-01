@@ -61,6 +61,7 @@ export const metadata: Metadata = {
       { url: '/apple-icon-180x180.png', sizes: '180x180', type: 'image/png' },
     ],
   },
+  manifest: '/manifest.json',
   openGraph: {
     type: 'website',
     locale: 'en_US',

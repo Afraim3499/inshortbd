@@ -152,8 +152,8 @@ export function ArticleView({ post, contentHtml, authorName, authorId, trendingP
 
                         {post.tags && post.tags.length > 0 && (
                             <div className="flex flex-wrap gap-2">
-                                {post.tags.map((tag: string) => (
-                                    <span key={tag} className="text-xs px-2 py-1 bg-secondary text-secondary-foreground rounded-md font-medium">#{tag}</span>
+                                {post.tags.map((tag: string, index: number) => (
+                                    <span key={`${tag}-${index}`} className="text-xs px-2 py-1 bg-secondary text-secondary-foreground rounded-md font-medium">#{tag}</span>
                                 ))}
                             </div>
                         )}

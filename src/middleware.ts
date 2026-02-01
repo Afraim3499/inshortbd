@@ -8,7 +8,7 @@ export async function middleware(request: NextRequest) {
   // 1. Enforce lowercase URLs (except for query params)
   const lowercasePath = pathname.toLowerCase()
   if (pathname !== lowercasePath && !pathname.startsWith('/_next') && !pathname.startsWith('/api')) {
-    const url = request.nextUrl.clone()
+    const url = new URL(request.url)
     url.pathname = lowercasePath
     return NextResponse.redirect(url, 301)
   }
@@ -25,7 +25,7 @@ export async function middleware(request: NextRequest) {
     style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://news.google.com;
     img-src 'self' blob: data: https://*.supabase.co https://images.unsplash.com https://i.gr-assets.com https://www.google.com https://*.googleusercontent.com https://www.googletagmanager.com https://www.facebook.com;
     font-src 'self' https://fonts.gstatic.com;
-    connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://news.google.com https://www.facebook.com https://*.facebook.com;
+    connect-src 'self' https://*.supabase.co wss://*.supabase.co ws://localhost:* https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://news.google.com https://www.facebook.com https://*.facebook.com;
     frame-src 'self' https://accounts.google.com https://news.google.com;
     object-src 'none';
     base-uri 'self';
@@ -57,7 +57,7 @@ export const config = {
      * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
      * Feel free to modify this pattern to include more paths.
      */
-    '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|css)$).*)',
   ],
 }
 

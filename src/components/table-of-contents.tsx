@@ -43,8 +43,16 @@ function extractHeadings(content: any): TOCItem[] {
           .replace(/-+/g, '-')
           .trim()
 
+        // Deduplicate IDs
+        let uniqueId = id
+        let counter = 1
+        while (headings.some(h => h.id === uniqueId)) {
+          uniqueId = `${id}-${counter}`
+          counter++
+        }
+
         headings.push({
-          id,
+          id: uniqueId,
           text,
           level: node.attrs.level,
         })

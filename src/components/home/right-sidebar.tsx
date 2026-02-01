@@ -106,9 +106,7 @@ export async function RightSidebar({ popularPosts, trendingPosts }: RightSidebar
                                         {post.title}
                                     </h4>
                                     <div className="flex items-center gap-2 text-[10px] text-meta-gray font-mono">
-                                        <span className="flex items-center gap-1">
-                                            {post.views?.toLocaleString('bn-BD')}বার পঠিত
-                                        </span>
+                                        {/* View count removed */}
                                     </div>
                                 </div>
                             </div>
@@ -147,7 +145,6 @@ export async function RightSidebar({ popularPosts, trendingPosts }: RightSidebar
                                 </Link>
                             )}
                             <div className="flex items-center gap-2 text-xs text-meta-gray font-mono">
-                                <span>{post.views?.toLocaleString('bn-BD')} বার পঠিত</span>
                                 {post.published_at && (
                                     <>
                                         <span>•</span>
@@ -193,7 +190,6 @@ export async function RightSidebar({ popularPosts, trendingPosts }: RightSidebar
                                 <span className={`w-1.5 h-1.5 rounded-full ${cat.color}`}></span>
                                 <span className="font-medium text-gray-700 group-hover:text-blood-red">{cat.name}</span>
                             </div>
-                            <span className="text-xs text-meta-gray">{cat.count.toLocaleString('bn-BD')}টি খবর</span>
                         </Link>
                     ))}
                 </div>
