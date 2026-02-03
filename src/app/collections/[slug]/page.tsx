@@ -156,7 +156,7 @@ export default async function CollectionPage({
       />
       <Navigation />
       {/* 1. Immersive Hero Section */}
-      <div className="relative w-full h-[60vh] min-h-[400px] flex items-center justify-center overflow-hidden">
+      <div className="relative w-full min-h-[60vh] flex items-center justify-center overflow-hidden">
         {/* Background Image with Parallax-like fixity or just absolute */}
         {collection.featured_image_url ? (
           <div className="absolute inset-0 z-0">
@@ -167,15 +167,15 @@ export default async function CollectionPage({
               className="object-cover opacity-90"
               priority
             />
-            {/* Dark Gradient Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-background" />
+            {/* Dark Gradient Overlay for Better Contrast */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90" />
           </div>
         ) : (
-          <div className="absolute inset-0 z-0 bg-muted" />
+          <div className="absolute inset-0 z-0 bg-zinc-900" />
         )}
 
         {/* Content */}
-        <div className="relative z-10 container max-w-4xl mx-auto px-4 text-center mt-12 pb-12">
+        <div className="relative z-10 container max-w-4xl mx-auto px-4 text-center py-24 md:py-32">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-sm text-gray-200 hover:text-white mb-6 transition-colors bg-white/10 px-4 py-1.5 rounded-full backdrop-blur-sm"
@@ -190,7 +190,7 @@ export default async function CollectionPage({
                 { label: 'Collections', href: '/archive' },
                 { label: collection.title, href: `/collections/${slug}` },
               ]}
-              className="text-gray-200 mb-0"
+              className="text-gray-200 mb-0 justify-center"
             />
           </div>
 
@@ -199,12 +199,12 @@ export default async function CollectionPage({
             <span>{isSeries ? 'Editorial Series' : 'Curated Collection'}</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-heading font-bold text-white mb-6 leading-tight drop-shadow-lg">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6 leading-tight drop-shadow-lg">
             {collection.title}
           </h1>
 
           {collection.description && (
-            <p className="text-lg md:text-xl text-gray-200 leading-relaxed max-w-2xl mx-auto drop-shadow-md">
+            <p className="text-base md:text-xl text-gray-200 leading-relaxed max-w-2xl mx-auto drop-shadow-md pb-4">
               {collection.description}
             </p>
           )}

@@ -9,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { useToast } from '@/hooks/use-toast'
-import { ArrowLeft, Save, Plus, Trash2, GripVertical, Search } from 'lucide-react'
+import { ArrowLeft, Save, Plus, Trash2, GripVertical, Search, Check, ChevronsUpDown } from 'lucide-react'
 import Link from 'next/link'
 import { updateCollection } from '@/app/actions/collections/update'
 import { addPostToCollection } from '@/app/actions/collections/add-post'
@@ -21,8 +21,15 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-    DialogFooter,
 } from '@/components/ui/dialog'
+import {
+    Command,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+} from "@/components/ui/command"
 import { cn } from '@/lib/utils'
 import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd'
 import { ImageUpload } from '@/components/editor/image-upload'
@@ -51,15 +58,16 @@ function CollectionForm({ collection, initialPosts, id }: { collection: any, ini
     const { data: searchResults } = useQuery({
         queryKey: ['search-posts', searchTerm],
         queryFn: async () => {
-            if (!searchTerm) return []
+            const { data: { session } } = await supabase.auth.getSession()
 
+            // Pass empty string to RPC if searchTerm is falsy
             const { data, error } = await supabase
-                .rpc('search_admin_posts', { search_term: searchTerm })
+                .rpc('search_admin_posts', { search_term: searchTerm || '' })
 
             if (error) throw error
             return data
         },
-        enabled: searchTerm.length > 2
+        // enabled: searchTerm.length > 2 // Fetch on mount if empty? Yes, to show recent.
     })
 
     // Update form data if collection prop updates (e.g. background revalidation)
@@ -190,15 +198,11 @@ function CollectionForm({ collection, initialPosts, id }: { collection: any, ini
             {/* Header */}
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                    <Link href="/admin/collections">
-                        <Button variant="ghost" size="icon">
-                            <ArrowLeft className="w-4 h-4" />
-                        </Button>
-                    </Link>
-                    <div>
-                        <h1 className="text-3xl font-heading font-bold">{formData.title}</h1>
-                        <p className="text-muted-foreground mt-1 text-sm font-mono">{formData.slug}</p>
-                    </div>
+                    <Button variant="ghost" onClick={() => router.back()}>
+                        <ArrowLeft className="w-4 h-4 mr-2" />
+                        Back
+                    </Button>
+                    <h1 className="text-2xl font-bold">Edit Collection</h1>
                 </div>
                 <Link href={`/collections/${collection?.slug || ''}`} target="_blank">
                     <Button variant="outline" size="sm">
@@ -207,9 +211,9 @@ function CollectionForm({ collection, initialPosts, id }: { collection: any, ini
                 </Link>
             </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Main Content: Post List (Sortable) */}
-                <div className="lg:col-span-2 space-y-6">
+                <div className="lg:col-span-2 space-y-6 order-2 lg:order-1">
                     <div className="flex items-center justify-between">
                         <h2 className="text-xl font-bold">Collection Items</h2>
                         <Dialog open={addPostOpen} onOpenChange={setAddPostOpen}>
@@ -223,46 +227,45 @@ function CollectionForm({ collection, initialPosts, id }: { collection: any, ini
                                 <DialogHeader>
                                     <DialogTitle>Add Article to Collection</DialogTitle>
                                 </DialogHeader>
-                                <div className="space-y-4 py-4">
-                                    <div className="relative">
-                                        <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                                        <Input
+                                <div className="py-4">
+                                    <Command shouldFilter={false} className="rounded-lg border shadow-md">
+                                        <CommandInput
                                             placeholder="Search articles..."
-                                            className="pl-9 bg-zinc-800 border-zinc-700"
                                             value={searchTerm}
-                                            onChange={(e) => setSearchTerm(e.target.value)}
+                                            onValueChange={setSearchTerm}
                                         />
-                                    </div>
-                                    <div className="space-y-2 max-h-[300px] overflow-y-auto pr-1">
-                                        {searchTerm.length < 3 && (
-                                            <p className="text-sm text-muted-foreground text-center py-4">Type at least 3 characters to search</p>
-                                        )}
-                                        {searchResults?.map((post: any) => {
-                                            const isAlreadyIn = posts?.some((cp: any) => cp.post_id === post.id)
-                                            return (
-                                                <div key={post.id} className="flex items-center justify-between p-3 rounded-md border border-zinc-800 bg-zinc-900/50 hover:bg-zinc-800 transition-colors">
-                                                    <div className="flex-1 min-w-0 mr-4">
-                                                        <p className="font-medium text-sm truncate">{post.title}</p>
-                                                        <span className={cn(
-                                                            "text-xs px-1.5 py-0.5 rounded-full",
-                                                            post.status === 'published' ? "bg-green-500/10 text-green-500" : "bg-yellow-500/10 text-yellow-500"
-                                                        )}>{post.status}</span>
-                                                    </div>
-                                                    <Button
-                                                        size="sm"
-                                                        disabled={isAlreadyIn || addPostMutation.isPending}
-                                                        onClick={() => addPostMutation.mutate(post.id)}
-                                                        variant={isAlreadyIn ? "ghost" : "default"}
-                                                    >
-                                                        {isAlreadyIn ? "Added" : "Add"}
-                                                    </Button>
-                                                </div>
-                                            )
-                                        })}
-                                        {searchTerm.length >= 3 && searchResults?.length === 0 && (
-                                            <p className="text-sm text-muted-foreground text-center">No articles found</p>
-                                        )}
-                                    </div>
+                                        <CommandList className="max-h-[300px]">
+                                            <CommandEmpty>No articles found.</CommandEmpty>
+                                            <CommandGroup heading={searchTerm ? "Search Results" : "Recent Articles"}>
+                                                {searchResults?.map((post: any) => {
+                                                    const isAlreadyIn = posts?.some((cp: any) => cp.post_id === post.id)
+                                                    return (
+                                                        <CommandItem
+                                                            key={post.id}
+                                                            value={post.id}
+                                                            onSelect={() => {
+                                                                if (!isAlreadyIn) {
+                                                                    addPostMutation.mutate(post.id)
+                                                                }
+                                                            }}
+                                                            disabled={isAlreadyIn}
+                                                            className="flex items-center justify-between data-[selected=true]:bg-accent data-[selected=true]:text-accent-foreground cursor-pointer"
+                                                        >
+                                                            <div className="flex flex-col">
+                                                                <span>{post.title}</span>
+                                                                <span className={cn(
+                                                                    "text-xs px-1.5 py-0.5 rounded-full w-fit mt-1",
+                                                                    post.status === 'published' ? "bg-green-500/10 text-green-500" : "bg-yellow-500/10 text-yellow-500"
+                                                                )}>{post.status}</span>
+                                                            </div>
+                                                            {isAlreadyIn && <Check className="w-4 h-4 text-muted-foreground" />}
+                                                            {/* We don't need buttons in CommandItem usually, click triggers select */}
+                                                        </CommandItem>
+                                                    )
+                                                })}
+                                            </CommandGroup>
+                                        </CommandList>
+                                    </Command>
                                 </div>
                             </DialogContent>
                         </Dialog>

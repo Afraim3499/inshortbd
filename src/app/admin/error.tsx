@@ -1,4 +1,5 @@
 'use client'
+// Force rebuild: Fix client manifest error
 
 import { useEffect } from 'react'
 import { Button } from '@/components/ui/button'

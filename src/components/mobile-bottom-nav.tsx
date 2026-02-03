@@ -13,6 +13,8 @@ export function MobileBottomNav() {
     const [searchOpen, setSearchOpen] = useState(false)
     const [menuOpen, setMenuOpen] = useState(false)
 
+    if (pathname?.startsWith('/admin') || pathname?.startsWith('/login')) return null
+
     const isActive = (path: string) => pathname === path
 
     return (

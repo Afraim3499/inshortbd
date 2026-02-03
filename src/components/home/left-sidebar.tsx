@@ -28,11 +28,12 @@ interface LeftSidebarProps {
 
 export function LeftSidebar({ collections, editorsPicks }: LeftSidebarProps) {
     return (
+
         <aside className="col-span-12 lg:col-span-3 space-y-6 order-3 lg:order-1">
             {/* Featured Series / Collections */}
             {collections && collections.length > 0 && (
-                <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
-                    <h3 className="font-bold text-sm uppercase tracking-wider text-gray-600 mb-4 flex items-center gap-2 font-sans">
+                <div className="bg-muted/30 border border-border/50 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                    <h3 className="font-bold text-sm uppercase tracking-wider text-muted-foreground mb-4 flex items-center gap-2 font-sans">
                         <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
                         সিরিজ
                     </h3>

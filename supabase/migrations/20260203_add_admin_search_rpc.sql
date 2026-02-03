@@ -1,9 +1,5 @@
 -- =====================================================
--- Admin Search RPC
--- =====================================================
--- Description: Allows admins to search ALL posts (drafts, etc.)
---              bypassing standard RLS row filters, but strictly
---              enforcing admin/editor role check.
+-- Admin Search RPC (Fixed Ambiguous Columns)
 -- =====================================================
 
 create or replace function public.search_admin_posts(search_term text)
@@ -14,20 +10,22 @@ returns table (
   published_at timestamptz
 ) 
 language plpgsql
-security definer -- Bypass RLS
+security definer
 set search_path = ''
 as $$
 begin
   -- 1. Security Check: Must be Admin or Editor
+  -- We use alias 'prof' to avoid ambiguity with return column 'id'
   if not exists (
-    select 1 from public.profiles
-    where id = auth.uid()
-    and role in ('admin', 'editor')
+    select 1 from public.profiles prof
+    where prof.id = auth.uid()
+    and prof.role in ('admin', 'editor')
   ) then
     raise exception 'Access denied: User is not an admin or editor.';
   end if;
 
   -- 2. Perform Search
+  -- We use alias 'p' to avoid ambiguity with return columns 'id', 'title', etc.
   return query
   select 
     p.id,
@@ -38,8 +36,8 @@ begin
   where 
     p.title ilike '%' || search_term || '%'
   order by 
-    case when p.title ilike search_term || '%' then 0 else 1 end, -- Exact start matches first
+    case when p.title ilike search_term || '%' then 0 else 1 end,
     p.published_at desc nulls last
-  limit 20;
+  limit 50;
 end;
 $$;
