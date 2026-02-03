@@ -54,11 +54,7 @@ function CollectionForm({ collection, initialPosts, id }: { collection: any, ini
             if (!searchTerm) return []
 
             const { data, error } = await supabase
-                .from('posts')
-                .select('id, title, status, published_at')
-                .ilike('title', `%${searchTerm}%`)
-                .neq('status', 'archived') // Optional: Exclude archived
-                .limit(10)
+                .rpc('search_admin_posts', { search_term: searchTerm })
 
             if (error) throw error
             return data
