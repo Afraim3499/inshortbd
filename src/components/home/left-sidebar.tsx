@@ -31,15 +31,15 @@ export function LeftSidebar({ collections, editorsPicks }: LeftSidebarProps) {
         <aside className="col-span-12 lg:col-span-3 space-y-6 order-3 lg:order-1">
             {/* Featured Series / Collections */}
             {collections && collections.length > 0 && (
-                <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 text-white shadow-xl">
-                    <h3 className="font-bold text-sm uppercase tracking-wider text-zinc-400 mb-4 flex items-center gap-2 font-sans">
-                        <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                        বিশ্লেষণ ও সিরিজ
+                <div className="bg-white border border-gray-200 rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow">
+                    <h3 className="font-bold text-sm uppercase tracking-wider text-gray-600 mb-4 flex items-center gap-2 font-sans">
+                        <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
+                        সিরিজ
                     </h3>
                     <div className="space-y-4">
                         {collections.map(collection => (
                             <Link key={collection.id} href={`/collections/${collection.slug}`} className="group flex gap-3 items-center">
-                                <div className="h-16 w-16 relative rounded-md overflow-hidden shrink-0 border border-zinc-700">
+                                <div className="h-16 w-16 relative rounded-md overflow-hidden shrink-0 border border-gray-100">
                                     <NewsImage
                                         src={collection.featured_image_url}
                                         alt={collection.title}
@@ -48,10 +48,10 @@ export function LeftSidebar({ collections, editorsPicks }: LeftSidebarProps) {
                                     />
                                 </div>
                                 <div className="flex-1 min-w-0">
-                                    <span className="text-[10px] font-mono text-blue-400 uppercase tracking-tight block mb-0.5">
-                                        সিরিজ
+                                    <span className="text-[10px] font-mono text-blue-600 uppercase tracking-tight block mb-0.5">
+                                        সংকলন
                                     </span>
-                                    <h4 className="text-sm font-bold text-zinc-100 group-hover:text-blue-400 leading-tight transition-colors line-clamp-2">
+                                    <h4 className="text-sm font-bold text-gray-900 group-hover:text-blue-600 leading-tight transition-colors line-clamp-2">
                                         {collection.title}
                                     </h4>
                                 </div>

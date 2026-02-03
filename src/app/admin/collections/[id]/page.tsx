@@ -57,6 +57,7 @@ function CollectionForm({ collection, initialPosts, id }: { collection: any, ini
                 .from('posts')
                 .select('id, title, status, published_at')
                 .ilike('title', `%${searchTerm}%`)
+                .neq('status', 'archived') // Optional: Exclude archived
                 .limit(10)
 
             if (error) throw error
@@ -425,8 +426,8 @@ export default function CollectionEditorPage({ params }: PageProps) {
     const { data: collection, isLoading: isLoadingCollection } = useQuery({
         queryKey: ['collection', id],
         queryFn: async () => {
-            const { data, error } = await (supabase
-                .from('collections') as any)
+            const { data, error } = await supabase
+                .from('collections')
                 .select('*')
                 .eq('id', id)
                 .single()
@@ -441,8 +442,8 @@ export default function CollectionEditorPage({ params }: PageProps) {
         queryKey: ['collection-posts', id],
         queryFn: async () => {
             // Join with posts table to get titles
-            const { data, error } = await (supabase
-                .from('collection_posts') as any)
+            const { data, error } = await supabase
+                .from('collection_posts')
                 .select(`
           *,
           post:posts (
