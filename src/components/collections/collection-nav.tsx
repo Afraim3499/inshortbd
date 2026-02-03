@@ -28,8 +28,8 @@ export function CollectionNav({ postId }: CollectionNavProps) {
         .maybeSingle()
 
       if (item) {
-        const { data: col } = await (supabase
-          .from('collections') as any)
+        const { data: col } = await supabase
+          .from('collections')
           .select('*')
           .eq('id', item.collection_id)
           .single()

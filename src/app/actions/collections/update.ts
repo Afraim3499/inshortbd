@@ -26,9 +26,8 @@ export async function updateCollection(
     }
 
     // Check permissions
-    // Note: collections table may not be in generated Database types
-    const { data: collection, error: collectionError } = await (supabase
-      .from('collections') as any)
+    const { data: collection, error: collectionError } = await supabase
+      .from('collections')
       .select('created_by')
       .eq('id', collectionId)
       .single()
@@ -63,8 +62,8 @@ export async function updateCollection(
     if (data.featured_image_url !== undefined)
       updateData.featured_image_url = data.featured_image_url
 
-    const { error } = await (supabase
-      .from('collections') as any)
+    const { error } = await supabase
+      .from('collections')
       .update(updateData)
       .eq('id', collectionId)
 

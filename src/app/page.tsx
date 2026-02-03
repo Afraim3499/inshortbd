@@ -186,7 +186,7 @@ export default async function Home({
   // 3b. Fetch Featured Collections (New)
   const collectionsPromise = (async () => {
     const supabase = await createClient()
-    const { data, error } = await (supabase.from('collections') as any)
+    const { data, error } = await supabase.from('collections')
       .select('id, title, slug, featured_image_url, created_at')
       .order('created_at', { ascending: false })
       .limit(3)

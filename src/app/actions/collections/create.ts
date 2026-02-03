@@ -29,8 +29,8 @@ export async function createCollection(data: {
 
     // Insert collection
     // Note: collections table may not be in generated Database types
-    const { data: collection, error } = await (supabase
-      .from('collections') as any)
+    const { data: collection, error } = await supabase
+      .from('collections')
       .insert({
         title: data.title,
         slug: data.slug,

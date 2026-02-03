@@ -103,7 +103,8 @@ export interface Database {
                     title: string
                     slug: string
                     description: string | null
-                    cover_image_url: string | null
+                    featured_image_url: string | null
+                    created_by: string | null
                     created_at: string
                     updated_at: string
                 }
@@ -112,7 +113,8 @@ export interface Database {
                     title: string
                     slug: string
                     description?: string | null
-                    cover_image_url?: string | null
+                    featured_image_url?: string | null
+                    created_by?: string | null
                     created_at?: string
                     updated_at?: string
                 }
@@ -121,7 +123,8 @@ export interface Database {
                     title?: string
                     slug?: string
                     description?: string | null
-                    cover_image_url?: string | null
+                    featured_image_url?: string | null
+                    created_by?: string | null
                     created_at?: string
                     updated_at?: string
                 }

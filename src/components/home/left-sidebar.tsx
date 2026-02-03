@@ -34,7 +34,7 @@ export function LeftSidebar({ collections, editorsPicks }: LeftSidebarProps) {
                 <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-5 text-white shadow-xl">
                     <h3 className="font-bold text-sm uppercase tracking-wider text-zinc-400 mb-4 flex items-center gap-2 font-sans">
                         <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                        গভীর বিশ্লেষণাত্মক সিরিজ
+                        বিশ্লেষণ ও সিরিজ
                     </h3>
                     <div className="space-y-4">
                         {collections.map(collection => (
