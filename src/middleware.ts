@@ -21,12 +21,12 @@ export async function middleware(request: NextRequest) {
   // Content Security Policy (Basic)
   const cspHeader = `
     default-src 'self';
-    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://apis.google.com https://news.google.com https://connect.facebook.net;
-    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://news.google.com;
-    img-src 'self' blob: data: https://*.supabase.co https://images.unsplash.com https://i.gr-assets.com https://www.google.com https://*.googleusercontent.com https://www.googletagmanager.com https://www.facebook.com;
-    font-src 'self' https://fonts.gstatic.com;
-    connect-src 'self' https://*.supabase.co wss://*.supabase.co ws://localhost:* https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://news.google.com https://www.facebook.com https://*.facebook.com;
-    frame-src 'self' https://accounts.google.com https://news.google.com;
+    script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://apis.google.com https://news.google.com https://connect.facebook.net https://vercel.live;
+    style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://news.google.com https://vercel.live;
+    img-src 'self' blob: data: https://*.supabase.co https://images.unsplash.com https://i.gr-assets.com https://www.google.com https://*.googleusercontent.com https://www.googletagmanager.com https://www.facebook.com https://vercel.live https://vercel.com;
+    font-src 'self' https://fonts.gstatic.com https://vercel.live;
+    connect-src 'self' https://*.supabase.co wss://*.supabase.co ws://localhost:* https://www.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://news.google.com https://www.facebook.com https://*.facebook.com https://vercel.live;
+    frame-src 'self' https://accounts.google.com https://news.google.com https://vercel.live;
     object-src 'none';
     base-uri 'self';
     form-action 'self';

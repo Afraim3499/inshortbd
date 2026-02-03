@@ -28,6 +28,12 @@ create policy "Admins/Editors manage collection posts"
   using ( is_admin_or_editor() )
   with check ( is_admin_or_editor() );
 
+create policy "Public can view collection posts"
+  on public.collection_posts
+  for select
+  to anon, authenticated
+  using ( true );
+
 -- 4. Grant permissions (just in case)
 grant all on public.collection_posts to authenticated;
 grant all on public.collection_posts to service_role;

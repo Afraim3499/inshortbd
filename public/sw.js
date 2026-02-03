@@ -4,7 +4,7 @@ const OFFLINE_URL = '/offline';
 const PRECACHE_URLS = [
     OFFLINE_URL,
     '/logo.svg',
-    '/styles.css' // Approximate if available, or just rely on runtime
+    // '/styles.css' - Removed as Next.js injects CSS dynamically
 ];
 
 self.addEventListener('install', (event) => {
