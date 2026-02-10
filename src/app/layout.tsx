@@ -91,6 +91,7 @@ import { OrganizationStructuredData, WebSiteStructuredData, LocalBusinessStructu
 import { Toaster } from "@/components/ui/toaster";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { ServiceWorkerRegister } from "@/components/pwa/sw-register";
+import { Analytics } from '@vercel/analytics/next';
 
 export default function RootLayout({
   children,
@@ -181,6 +182,7 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
           <SmoothScroll />
           <ServiceWorkerRegister />
         </QueryProvider>
+        <Analytics />
       </body>
     </html>
   );
